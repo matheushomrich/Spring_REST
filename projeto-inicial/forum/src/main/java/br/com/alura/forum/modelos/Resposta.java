@@ -1,4 +1,4 @@
-package modelos;
+package br.com.alura.forum.modelos;
 
 import java.time.LocalDateTime;
 

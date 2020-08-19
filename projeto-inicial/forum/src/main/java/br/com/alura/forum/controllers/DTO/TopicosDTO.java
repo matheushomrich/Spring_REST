@@ -1,6 +1,6 @@
-package controllers.DTO;
+package br.com.alura.forum.controllers.DTO;
 
-import modelos.Topico;
+import br.com.alura.forum.modelos.Topico;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class TopicosDTO {
 
-    private long id;
+    private Long id;
     private String titulo;
     private String mensagem;
     private LocalDateTime dataCriacao;
@@ -20,7 +20,7 @@ public class TopicosDTO {
         this.dataCriacao = topico.getDataCriacao();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
