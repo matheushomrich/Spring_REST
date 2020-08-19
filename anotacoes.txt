@@ -1,1 +1,7 @@
 @parent é onde ele herda no pom.xml o Spring Boot
+
+@ResponseBody serve para que não precise ser criado um html prórpio para o retorno da pagina
+
+Se você utilizar o @RestController ao invés do @Controller você já está dizendo que todos os métodos terão @ResponseBody
+
+DevTools permitem que apesar da mudança de código ser em Controllers você não precisa rodar todo projeto de novo, o Spring-Devtools já faz isso pra gente
