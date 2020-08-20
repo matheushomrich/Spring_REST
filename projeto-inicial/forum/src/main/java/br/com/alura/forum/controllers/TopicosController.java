@@ -3,6 +3,8 @@ package br.com.alura.forum.controllers;
 import br.com.alura.forum.controllers.DTO.TopicosDTO;
 import br.com.alura.forum.modelos.Curso;
 import br.com.alura.forum.modelos.Topico;
+import br.com.alura.forum.repository.TopicoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,12 +17,18 @@ import java.util.List;
 //@Controller
 public class TopicosController {
 
+    @Autowired
+    private TopicoRepository topicoRepository;
+
     @RequestMapping("/topicos")
     //@ResponseBody
     public List<TopicosDTO> listaTopicos() {
 
-        Topico topico = new Topico("Spring", "Spring error", new Curso("Spring Boot", "Programação"));
+        List<Topico> topicos = topicoRepository.findAll();
 
-        return TopicosDTO.converter(Arrays.asList(topico, topico, topico));
+        //Topico topico = new Topico("Spring", "Spring error", new Curso("Spring Boot", "Programação"));
+        //return TopicosDTO.converter(Arrays.asList(topico, topico, topico));
+
+        return TopicosDTO.converter(topicos);
     }
 }
