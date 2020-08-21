@@ -5,3 +5,7 @@
 Se você utilizar o @RestController ao invés do @Controller você já está dizendo que todos os métodos terão @ResponseBody
 
 DevTools permitem que apesar da mudança de código ser em Controllers você não precisa rodar todo projeto de novo, o Spring-Devtools já faz isso pra gente
+
+Ao invés da craiçaõ de diversos IFs para a validação de recursos, a maneira mais prática é usar as Annotations que os Beans permitem dentro dos atributos
+
+@Transactional para atualizar no banco de dados e não apenas na memória local
