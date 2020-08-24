@@ -9,6 +9,13 @@ import br.com.alura.forum.modelos.Topico;
 import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,17 +39,24 @@ public class TopicosController {
     private CursoRepository cursoRepository;
 
     @GetMapping
+    @Cacheable(value = "listaDeTopicos")
     //@RequestMapping(value = "/topicos", method = RequestMethod.GET)
     //@ResponseBody
-    public List<TopicosDTO> listaTopicos(String nomeCurso) {
+    public Page<TopicosDTO> listaTopicos(@RequestParam(required = false) String nomeCurso,
+                                         /*@RequestParam(required = true) int pagina,
+                                         @RequestParam(required = true) int qtd,
+                                         @RequestParam(required = false) String ordenacao*/
+                                         @PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable paginacao) {
+
+        //Pageable paginacao = PageRequest.of(pagina, qtd, Sort.Direction.DESC, ordenacao);
 
         //System.out.println(nomeCurso);
 
         if(nomeCurso == null) {
-            List<Topico> topicos = topicoRepository.findAll();
+            Page<Topico> topicos = topicoRepository.findAll(paginacao);
             return TopicosDTO.converter(topicos);
         } else {
-            List<Topico> topicos = topicoRepository.findByCursoNome(nomeCurso);
+            Page<Topico> topicos = topicoRepository.findByCursoNome(nomeCurso, paginacao);
             return TopicosDTO.converter(topicos);
         }
         //Topico topico = new Topico("Spring", "Spring error", new Curso("Spring Boot", "Programação"));
@@ -51,6 +65,7 @@ public class TopicosController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "listaDeTopicos", allEntries = true)
     //@RequestMapping(value = "/topicos", method = RequestMethod.POST)
     public ResponseEntity<TopicosDTO> cadastrar(@RequestBody @Valid TopicoForm topicoForm, UriComponentsBuilder uriComponentsBuilder) {
 
@@ -75,6 +90,7 @@ public class TopicosController {
 
     @PutMapping("/{id}")
     @Transactional
+    @CacheEvict(value = "listaDeTopicos", allEntries = true)
     public ResponseEntity<TopicosDTO> atualizar(@PathVariable("id") Long codigo, @RequestBody @Valid UpdateTopicoForm topicoForm) {
         Optional<Topico> optional = topicoRepository.findById(codigo);
         if(optional.isPresent()) {
@@ -87,6 +103,7 @@ public class TopicosController {
 
     @DeleteMapping("{id}")
     @Transactional
+    @CacheEvict(value = "listaDeTopicos", allEntries = true)
     public ResponseEntity<?> remove(@PathVariable("id") Long id) {
         Optional<Topico> optional = topicoRepository.findById(id);
         if(optional.isPresent()) {

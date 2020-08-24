@@ -9,3 +9,17 @@ DevTools permitem que apesar da mudança de código ser em Controllers você nã
 Ao invés da craiçaõ de diversos IFs para a validação de recursos, a maneira mais prática é usar as Annotations que os Beans permitem dentro dos atributos
 
 @Transactional para atualizar no banco de dados e não apenas na memória local
+
+Pageable para habilitar paginacao tornando mais leve o carregamento de dados, ao invés de vir tudo de uma vez, vem de pagina em pagina
+
+Utilizando o @EnableSpringDataWebSupport você pode passar o Pageable por parâmetro do método e assim passar os parametros via URL sem ter que declarar cada um deles no próprio método
+
+EXEMPLO DE URL DE BUSCA EM DADOS: http://localhost:8080/topicos?page=0&size=10&sort=id,asc&sort=dataCriacao,asc
+
+@PageableDefault permite que voce possa passar parametros default caso o cliente nao passe nenhum na URL
+
+@EnableCaching permite que o projeto use a memoria cache para fazer as bucas no projeto 
+
+@CacheEvict serve para atualizar o cache quando algum metodo faz alguma entrada no banco de dados, utilizar toda vez que se mexe no banco(atualizar o tipo de pesquisa, adicionar e deletar)
+
+Quando/Onde usar cache? --> Tabelas que são raramente atualizadas
