@@ -23,3 +23,10 @@ EXEMPLO DE URL DE BUSCA EM DADOS: http://localhost:8080/topicos?page=0&size=10&s
 @CacheEvict serve para atualizar o cache quando algum metodo faz alguma entrada no banco de dados, utilizar toda vez que se mexe no banco(atualizar o tipo de pesquisa, adicionar e deletar)
 
 Quando/Onde usar cache? --> Tabelas que são raramente atualizadas
+
+APIs REST buscam uma conexão stateless assim toda vez que um usuário fizer login não terá uma sessão aberta pra ele consumindo memória no servidor
+
+STATELESS faz com que ao inves de guardar um usuario lgoado tenha que conferir um token a cada requisiscao feita
+
+var json = JSON.parse(responseBody)
+pm.environment.set("token", json.acessToken)
