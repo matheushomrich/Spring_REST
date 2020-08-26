@@ -30,3 +30,5 @@ STATELESS faz com que ao inves de guardar um usuario lgoado tenha que conferir u
 
 var json = JSON.parse(responseBody)
 pm.environment.set("token", json.acessToken)
+
+Actuator --> ter noção da manutenção do projeto, se os processos estão funcionando etc
