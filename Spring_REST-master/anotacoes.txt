@@ -1,0 +1,34 @@
+@parent é onde ele herda no pom.xml o Spring Boot
+
+@ResponseBody serve para que não precise ser criado um html prórpio para o retorno da pagina
+
+Se você utilizar o @RestController ao invés do @Controller você já está dizendo que todos os métodos terão @ResponseBody
+
+DevTools permitem que apesar da mudança de código ser em Controllers você não precisa rodar todo projeto de novo, o Spring-Devtools já faz isso pra gente
+
+Ao invés da craiçaõ de diversos IFs para a validação de recursos, a maneira mais prática é usar as Annotations que os Beans permitem dentro dos atributos
+
+@Transactional para atualizar no banco de dados e não apenas na memória local
+
+Pageable para habilitar paginacao tornando mais leve o carregamento de dados, ao invés de vir tudo de uma vez, vem de pagina em pagina
+
+Utilizando o @EnableSpringDataWebSupport você pode passar o Pageable por parâmetro do método e assim passar os parametros via URL sem ter que declarar cada um deles no próprio método
+
+EXEMPLO DE URL DE BUSCA EM DADOS: http://localhost:8080/topicos?page=0&size=10&sort=id,asc&sort=dataCriacao,asc
+
+@PageableDefault permite que voce possa passar parametros default caso o cliente nao passe nenhum na URL
+
+@EnableCaching permite que o projeto use a memoria cache para fazer as bucas no projeto 
+
+@CacheEvict serve para atualizar o cache quando algum metodo faz alguma entrada no banco de dados, utilizar toda vez que se mexe no banco(atualizar o tipo de pesquisa, adicionar e deletar)
+
+Quando/Onde usar cache? --> Tabelas que são raramente atualizadas
+
+APIs REST buscam uma conexão stateless assim toda vez que um usuário fizer login não terá uma sessão aberta pra ele consumindo memória no servidor
+
+STATELESS faz com que ao inves de guardar um usuario lgoado tenha que conferir um token a cada requisiscao feita
+
+var json = JSON.parse(responseBody)
+pm.environment.set("token", json.acessToken)
+
+Actuator --> ter noção da manutenção do projeto, se os processos estão funcionando etc
